@@ -56,16 +56,16 @@ console.log (staffs)
 
 // Bai 4.2: Add staffs
 
-
+{
 let name = prompt ('Enter new staff name')
 let salary = prompt ('Enter salary')
 let position = prompt ('Enter position')
 let newStaff = {name, salary, position,}
 staffs.push (newStaff)
 console.log (staffs)
-
+}
 // Bai 4.3: Update staffs information
-
+{
 let staff = Number (prompt ('Which staff do you want to update details (enter a number)'))
 let name = prompt ('Enter new name')
 let salary = prompt ('Enter new salary')
@@ -73,12 +73,12 @@ let position = prompt ('Enter new position')
 let update = {name, salary, position,}
 staffs[staff] = update
 console.log (staffs)
-
+}
 
 // Bai 4.4: Delete a staff
-
+{
 let del = Number (prompt ('Which staff do you want to delete (type a number)?'))
 staffs.splice(del,1)
 console.log(staffs)
-
+}
 }
