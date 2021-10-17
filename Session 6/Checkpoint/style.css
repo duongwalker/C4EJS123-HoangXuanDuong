@@ -1,0 +1,44 @@
+/* Bai 1 */
+bai1 p {
+    color: red;
+}
+
+/* Bai 2 */
+bai2 .div-2 {
+    color: #00FF00;
+}
+
+/* Bai 3 */
+bai3 {
+    color: red;
+    font-size: 24px;
+}
+
+/* Bai 4 */
+bai4 div{
+    font-size: 3em;
+    background: wheat
+  }
+/* Bai 5 */
+bai5 #div2 {
+    color: blue
+}
+
+/* Bai 6 */
+bai6 {
+    color: yellow
+}
+
+/* Bai 7 */
+bai7 ul li {
+    font-weight: bold;
+}
+
+/* Bai 9 */
+
+bai9 .item  > span {
+    font-size: 18px
+}
+bai9 .item > div > span {
+    font-style: italic
+}
