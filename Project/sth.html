@@ -1,0 +1,200 @@
+
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý nhân viên công ty C4EJS123</title>
+<style>
+    td {
+        padding: 15px;
+    }
+
+    input{
+        padding: 5px;
+    }
+</style></head>
+
+
+<body>
+    <table border="1" cellpadding="8">
+        <tbody>
+            <tr>
+                <td>ID</td>
+                <td colspan="3"><input type="number" id="id"> </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td colspan="3"><input type="text" id="name"> </td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td colspan="3"><input type="gender" id="gender"> </td>
+            </tr>
+            <tr>
+                <td>Department</td>
+                <td colspan="3"><input type="departmentr" id="department"> </td>
+            </tr>
+            <tr>
+                <td>Position</td>
+                <td colspan="3"><input type="position" id="position"> </td>
+            </tr>
+            <tr>
+                <td>Date of Birth</td>
+                <td colspan="3"><input type="dob" id="dob"> </td>
+            </tr>
+            <tr>
+                <td>Mail</td>
+                <td colspan="3"><input type="mail" id="mail"> </td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td colspan="3"><input type="phone" id="phone"> </td>
+            </tr>
+            <tr>
+                <td>Salary</td>
+                <td colspan="3"><input type="salary" id="salary"> </td>
+            </tr>
+            <tr align="center">
+                <td colspan="4">
+                    <button onclick="Add()">Add</button>
+                    <!-- <button onclick="Edit()">Edit</button> -->
+                    <!-- <button onclick="View()">View</button>
+                    <button onclick="Search()">Search</button> -->
+                    <button onclick="Refresh()">Refresh</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="database" style="margin-top: 20px;">
+        
+    </div>
+
+    <script>
+        var data = []; // Khai báo mảng trong javascript
+
+        // Check trùng id
+        function checkID(id){
+            var list = this.data;
+            for (var i = 0; i < list.length; i++){
+                if (list[i].id == id) {
+                    return true;
+                }
+            }
+        }
+
+        // Check chưa nhập thông tin
+        function checkInfo(){
+            var id = document.getElementById('id').value;
+            var name = document.getElementById('name').value;
+            var gender = document.getElementById('gender').value;
+            var department = document.getElementById('department').value;
+            var position = document.getElementById('position').value;
+            var dob = document.getElementById('dob').value;
+            var mail = document.getElementById('mail').value;
+            var phone = document.getElementById('phone').value;
+            var salary = document.getElementById('salary').value;
+
+            if (id && name && gender && department && position && dob && mail && phone && salary) {
+                return true;
+            }else{
+                alert('Vui lòng nhập đầy đủ thông tin trước khi thêm!');
+            }
+        }
+
+        // Thêm mới nhân viên
+        function Add(){
+            var id = document.getElementById('id').value;
+            var name = document.getElementById('name').value;
+            var gender = document.getElementById('gender').value;
+            var department = document.getElementById('department').value;
+            var position = document.getElementById('position').value;
+            var dob = document.getElementById('dob').value;
+            var mail = document.getElementById('mail').value;
+            var phone = document.getElementById('phone').value;
+            var salary = document.getElementById('salary').value;
+
+            var item = {
+                id        :  id,
+                name      :  name,
+                gender    : gender,
+                department: department,
+                position  : position,
+                dob       : dob,
+                mail      :  mail,
+                phone     :  phone,
+                salary    : salary,
+            };
+
+            if (checkID(id)) {
+                alert("ID đã tồn tại, vui lòng nhập ID khác!");
+            }else if(checkInfo()){
+                this.data.push(item);
+                console.log(data);
+                View();
+            }
+        }
+
+        // Hiển thị nhân viên
+        function View(){
+            var list = this.data;
+
+            // Xử lý cộng chuỗi thành html - table
+            var datas = '<table border="1" cellpadding="5"><tr> <td>Id</td> <td>Name</td> <td>Gender</td> <td>Department</td> <td>Position</td> <td>Date of Birth</td> <td>Mail</td> <td>Phone</td> <td>Salary</td> <td>Action</td> </tr>';
+            for (var i = 0; i < list.length; i++){
+                
+                datas += "<tr>";
+                datas += "<td>" + list[i].id + "</td>"; 
+                datas += "<td>" + list[i].name + "</td>"; 
+                datas += "<td>" + list[i].gender + "</td>"; 
+                datas += "<td>" + list[i].department + "</td>"; 
+                datas += "<td>" + list[i].position + "</td>"; 
+                datas += "<td>" + list[i].dob + "</td>"; 
+                datas += "<td>" + list[i].mail + "</td>"; 
+                datas += "<td>" + list[i].phone + "</td>";
+                datas += "<td>" + list[i].salary + "</td>";  
+                datas += "<td><button onclick='Deletes(" + list[i].id + ")'>Xóa</button>";
+                datas += "</tr>";
+            }
+            datas += '</table>';
+
+            if (list.length != 0) {
+                document.getElementById('database').innerHTML = datas;
+            }else{
+                 document.getElementById('database').innerHTML = 'Dữ liệu trống!';
+            }
+           
+        }
+
+        // Xóa nhân viên theo id
+        function Deletes(id){
+            var list = this.data;
+            var check = confirm("Bạn có muốn xóa nhân viên này không?");
+
+            if(check){
+                for (var i = 0; i < list.length; i++){
+                    if (list[i].id == id) {
+                        list.splice(i, 1);
+                    }
+                }
+            }
+            View(); // gọi hàm hiển thị
+        }
+
+        // Refresh
+        function Refresh(){
+            document.getElementById('id').value = '';
+            document.getElementById('name').value = '';
+            document.getElementById('gender').value = '';
+            document.getElementById('department').value = '';
+            document.getElementById('position').value = '';
+            document.getElementById('dob').value = '';
+            document.getElementById('mail').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('salary').value = '';
+        }
+
+    </script>
+
+
+</body>
+</html>
